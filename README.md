@@ -104,6 +104,10 @@ AWS_STORAGE_BUCKET_NAME = ''
 # http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
 S3DIRECT_REGION = 'us-east-1'
 
+# The S3 endpoint can be overridden for testing purposes
+# (for example using https://github.com/atlassian/localstack):
+S3DIRECT_ENDPOINT = 'http://localhost:4572'
+
 # Destinations, with the following keys:
 #
 # key [required] Where to upload the file to, can be either:

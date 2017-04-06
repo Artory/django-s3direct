@@ -53,10 +53,12 @@ def create_upload_data(content_type, key, acl, bucket=None, cache_control=None,
 
     bucket = bucket or settings.AWS_STORAGE_BUCKET_NAME
     region = getattr(settings, 'S3DIRECT_REGION', None)
-    if not region or region == 'us-east-1':
-        endpoint = 's3.amazonaws.com'
-    else:
-        endpoint = 's3-%s.amazonaws.com' % region
+    endpoint = getattr(settings, 'S3DIRECT_ENDPOINT', None)
+    if not endpoint:
+        if not region or region == 'us-east-1':
+            endpoint = 's3.amazonaws.com'
+        else:
+            endpoint = 's3-%s.amazonaws.com' % region
     expires_in = datetime.utcnow() + timedelta(seconds=60*5)
     expires = expires_in.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     now_date = datetime.utcnow().strftime('%Y%m%dT%H%M%S000Z')
